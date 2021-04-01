@@ -10,6 +10,17 @@ categories: jekyll github-pages
 $ git clone ...
 $ cd CLONED_REPOSITORY_DIR
 ```
+- Устанавливаем Jekkyl.
+[Инструкции](https://jekyllrb.com/docs/installation/) для разных ОСей. Я ставил под
+[Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/).
+```sh
+$ sudo apt-get install ruby-dev build-essential zlib1g-dev
+$ echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+$ echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+$ echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+$ source ~/.bashrc
+$ gem install jekyll bundler
+```
 - Настраиваем Jekyll.
 [Здесь более подробно.](https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site-with-jekyll)
 ```sh
