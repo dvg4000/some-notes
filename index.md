@@ -4,4 +4,6 @@
 
 layout: home
 list_title: Посты
+rss_title: Подписка
+rss_url_title: "через RSS"
 ---
