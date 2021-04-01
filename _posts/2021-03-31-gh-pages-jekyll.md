@@ -51,6 +51,8 @@ $ bundle update
 ```sh
 $ bundle exec jekyll serve --host 0.0.0.0
 ```
+`--host 0.0.0.0` на случай, если нельзя зайти на `127.0.0.1`. Я тестирую на 
+`192.168.10.10:4000/some-notes/`.
 - Коммитим и пушим.
 ```sh
 $ echo "Gimfile.lock" >> .gitignore
