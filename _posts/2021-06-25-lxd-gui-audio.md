@@ -32,14 +32,14 @@ ubuntu@guiapps:~$ sudo apt install x11-apps
 ubuntu@guiapps:~$ sudo apt install mesa-utils
 ubuntu@guiapps:~$ sudo apt install alsa-utils
 ubuntu@guiapps:~$ sudo apt install pulseaudio
-ubuntu@guiapps:~$ exit $
+ubuntu@guiapps:~$ exit
 ```
 
 В оригинальном [посте](https://blog.simos.info/how-to-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/), не было устновки `pulseaudio`. Но без этого пакета, у меня
 не работал звук. Про `pulseaduio` нашел в комментах к посту. 
 
 Далее нужно спроецировать ID пользователя хоста (текущего пользователя) в
-контейнер. Делается как показано ниже. Более подробная информация, есть в
+контейнер. Делается это, как показано ниже. Более подробная информация, есть в
 оригинальном
 [посте](https://blog.simos.info/how-to-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/).
 
@@ -91,18 +91,17 @@ ubuntu@guiapps:~$ echo "export DISPLAY=:0" >> ~/.profile
 ubuntu@guiapps:~$ source .profile
 ubuntu@guiapps:~$ xclock
 ```
-Должны появиться часики.
+Должны появиться часики.<br/>
 ![xclock](https://i2.wp.com/blog.simos.info/wp-content/uploads/2017/05/xclock.png?ssl=1)
 
-`glxgears` у меня тоже заработали. Показывали 60 fps.
+`glxgears` у меня тоже заработали. Показывали 60 fps.<br/>
 ![glxgears](https://i1.wp.com/blog.simos.info/wp-content/uploads/2017/05/glxgears-container.png?ssl=1)
-
 
 ### Звук
 
 Для работы звука, на хосте нужно разрешить доступ по сети, к локальным устройствам.
 Делается это, через установку `paprefs`, далее вкладка `Network Server / [x] Enable network 
-access to local sound devices.
+access to local sound devices`.
 ```sh
 $ sudo apt install paprefs
 $ paprefs
