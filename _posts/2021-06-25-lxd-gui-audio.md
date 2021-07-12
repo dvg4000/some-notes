@@ -130,3 +130,6 @@ P.S. Если что-то не заработало, можно попробов
 ```sh
 $ lxc restart guiapps
 ```
+
+P.P.S. Еще одна
+[статья](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/), от автора оригинального поста. В этом посту, автор использует профили, для более быстрой настройки контейнера.
