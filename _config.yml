@@ -8,10 +8,10 @@ baseurl: "/some-notes" # the subpath of your site, e.g. /blog
 url: "https://dvg4000.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 github_username:  dvg4000
+show_excerpts: false
 
 # Build settings
 theme: minima
-show_excerpts: true
 plugins:
   - jekyll-feed
 
