@@ -11,6 +11,7 @@ github_username:  dvg4000
 
 # Build settings
 theme: minima
+show_excerpts: true
 plugins:
   - jekyll-feed
 
