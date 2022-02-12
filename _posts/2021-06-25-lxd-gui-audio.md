@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Запускаем GUI приложения в LXD, еще и со звуком"
+title:  "Запускаем GUI приложения в LXC, еще и со звуком"
 date:   2021-06-25 22:11:33 +0300
-categories: jekyll github-pages
+tags:	[LXC, LXD, Manjaro, Arch, Linux]
 ---
 ### Собственно сабж
 
@@ -109,7 +109,7 @@ $ paprefs
 
 ![paprefs](https://i2.wp.com/blog.simos.info/wp-content/uploads/2017/05/paprefs-network-access.png?resize=643%2C322&ssl=1)
 
-Далее нужно в контейнере указать адрес сервера Pulseaduio и пробросить куки для
+Далее нужно в контейнере указать адрес сервера PulseAduio и пробросить куки для
 него.
 ```sh
 $ lxc shell
@@ -119,6 +119,8 @@ ubuntu@guiapps:~$ echo export PULSE_COOKIE=/home/ubuntu/.config/pulse/cookie >> 
 ubuntu@guiapps:~$ exit
 $ lxc config device add guiapps PACookie disk path=/home/ubuntu/.config/pulse/cookie source=/home/${USER}/.config/pulse/cookie
 ```
+*Уточнение.
+На хосте, надо открыть порт 4713/tcp для PulseAudio.*
 
 Пробуем звук.
 ```sh
