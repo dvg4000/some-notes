@@ -17,10 +17,8 @@ tags: [Firefox]
 1. Находим директорию профиля Firefox. 
 Для этого надо открыть страницу [about:support](about:support). На ней найти
 пункт `Profile Directory`. Значение справа и есть нужный нам каталог.
-
 2. Создать в директории профиля, каталог `chrome` с файлом `userChrome.css`.
 3. Добавить в файл `userChrome.css` текст ниже.
-
 ```css
 /*** Add/Edit Bookmarks Drop-down ***/
 /* Hide Giant Thumbnail and Favicon */
@@ -37,7 +35,6 @@ tags: [Firefox]
   min-height: 350px !important; 
 }
 ```
-
 4. Включаем загрузку `userChrome.css`.
 Для этого нужно перейти на страницу [about:config](about:config) и выставить
 `toolkit.legacyUserProfileCustomizations.stylesheets` в `true`.
