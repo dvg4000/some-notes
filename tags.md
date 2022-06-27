@@ -10,7 +10,7 @@ description: "Посты отсортированные по тэгам."
 <!-- tag_words: {{ tag_words }} -->
 
 <div id="tags">
-  <ul class="tag-box inline">
+  <ul>
   {% for tag in tag_words %}
     <li><a href="#{{ tag | cgi_escape }}">{{ tag }} <span>{{ site.tags[tag] | size }}</span></a></li>
   {% endfor %}
@@ -19,9 +19,9 @@ description: "Посты отсортированные по тэгам."
   {% for item in (0..site.tags.size) %}{% unless forloop.last %}
     {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
   <h2 id="{{ this_word | cgi_escape }}">{{ this_word }}</h2>
-  <ul class="posts">
+  <ul>
     {% for post in site.tags[this_word] %}{% if post.title != null %}
-    <li itemscope><span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></span> &raquo; {% if post.category == "speaking" %}<i class="fa fa-microphone"></i> {% endif %}<a href="{{ post.url }}">{{ post.title }}</a></li>
+    <li itemscope><span><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></span> &raquo; {% if post.category == "speaking" %}<i></i> {% endif %}<a href="{{ post.url | absolute_url }}">{{ post.title }}</a></li>
     {% endif %}{% endfor %}
   </ul>
   {% endunless %}{% endfor %}
