@@ -2,7 +2,7 @@
 layout: post
 title:  "Запускаем GUI приложения в LXC, еще и со звуком"
 date:   2021-06-25 22:11:33 +0300
-tags:	[virtualization, LXC, LXD, Manjaro, Arch, Linux]
+tags:	[virtualization, LXC, LXD, Linux]
 ---
 ### Собственно сабж
 
