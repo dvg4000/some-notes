@@ -2,7 +2,7 @@
 layout: post
 title:  "Комментарии к постам на GitHub Pages"
 date:   2021-07-14 21:57:33 +0300
-tags: utterances disqus
+tags: [GitHub Pages, Utterances, Disqus]
 ---
 ### Опять сабж
 

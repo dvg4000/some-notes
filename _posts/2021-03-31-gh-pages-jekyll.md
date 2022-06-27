@@ -2,7 +2,7 @@
 layout: post
 title:  "Настройка GitHub Pages + Jekyll"
 date:   2021-03-31 23:00:33 +0300
-categories: jekyll github-pages
+tags: [Jekyll, Github Pages]
 ---
 - Создаем репозиторий на GitHub. Можно пустой, или с Readme.md.
 - Клонируем.

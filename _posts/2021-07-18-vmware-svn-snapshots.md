@@ -2,7 +2,7 @@
 layout: post
 title:  "VMware Player + SVN = snapshots"
 date:   2021-07-18 20:55:33 +0300
-tags: [VMware, SVN, PCEm, 86Box, Windows XP, Windows 98, VirtualBox, Sandboxie, DOXBox]
+tags: [virtualization, emulation, sandbox, VMware, SVN, PCEm, 86Box, Windows XP, Windows 98, VirtualBox, Sandboxie, DOSBox]
 ---
 ### Сабж
 Собственно соль данного эссе в том, что мне уже давно хочется поиграть в старые

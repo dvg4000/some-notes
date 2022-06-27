@@ -2,7 +2,7 @@
 layout: post
 title:  "Android Studio Emulator networks"
 date:   2022-02-09 20:23:33 +0300
-tags: [Android, Emulator, WebView]
+tags: [Android, WebView]
 ---
 ### Если нужно с эмулятора, подключиться к порту хоста
 Хост в данном случае - это компьютер на которм запущен эмулятор. 
