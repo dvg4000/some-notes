@@ -10,6 +10,10 @@ url: "https://dvg4000.github.io" # the base hostname & protocol for your site, e
 github_username:  dvg4000
 show_excerpts: false
 
+header_pages:
+  - about.md
+  - tags.md
+
 # Build settings
 theme: minima
 plugins:
