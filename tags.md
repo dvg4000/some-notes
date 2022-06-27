@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Tags
+title: Тэги
 description: "Посты отсортированные по тэгам."
 ---
 
