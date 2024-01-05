@@ -28,26 +28,28 @@ rss_url_title: "через RSS"
 
 {% if paginator.total_pages > 1 %}
 <div class="pagination">
+  <p class="entry-tags">
   {% if paginator.previous_page %}
-    <a class="post-link" href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
   {% else %}
-    <span class="post-link">&laquo; Prev</span>
+    <span>&laquo; Prev</span>
   {% endif %}
 
   {% for page in (1..paginator.total_pages) %}
     {% if page == paginator.page %}
       <em>{{ page }}</em>
     {% elsif page == 1 %}
-      <a class="post-link" href="{{ '/' | relative_url }}">{{ page }}</a>
+      <a href="{{ '/' | relative_url }}">{{ page }}</a>
     {% else %}
-      <a class="post-link" href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+      <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
   {% endfor %}
 
   {% if paginator.next_page %}
-    <a class="post-link" href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
   {% else %}
-    <span class="post-link">Next &raquo;</span>
+    <span>Next &raquo;</span>
   {% endif %}
+  </p>
 </div>
 {% endif %}
