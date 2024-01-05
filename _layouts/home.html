@@ -10,6 +10,7 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
+    <!--
     <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
     <ul class="post-list">
       {%- for post in site.posts -%}
@@ -27,10 +28,14 @@ layout: default
       </li>
       {%- endfor -%}
     </ul>
-
-    <p class="rss-subscribe">{{ page.rss_title | default: "subscribe" }} <a href="{{
-	      "/feed.xml" | relative_url }}">{{ page.rss_url_title | default:
-	      "via RSS" }}</a></p>
+    -->
   {%- endif -%}
+
+  <p class="rss-subscribe">
+    {{ page.rss_title | default: "subscribe" }} 
+    <a href="{{"/feed.xml" | relative_url }}">
+      {{ page.rss_url_title | default: "via RSS" }}
+    </a>
+  </p>
 
 </div>

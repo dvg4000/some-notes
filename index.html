@@ -10,6 +10,7 @@ rss_url_title: "через RSS"
 
 <!-- This loops through the paginated posts -->
 {% for post in paginator.posts %}
+  <!--
   <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
   <p class="author">
     <span class="date">{{ post.date }}</span>
@@ -17,6 +18,20 @@ rss_url_title: "через RSS"
   <div class="content">
     {{ post.content }}
   </div>
+  -->
+
+  <li>
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    <span class="post-meta">{{ post.date | date: date_format }}</span>
+    <h3>
+      <a class="post-link" href="{{ post.url | relative_url }}">
+        {{ post.title | escape }}
+      </a>
+    </h3>
+    {%- if site.show_excerpts -%}
+      {{ post.excerpt }}
+    {%- endif -%}
+  </li>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}
