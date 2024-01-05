@@ -18,8 +18,11 @@ sass:
     sass_dir: _sass
     style: :compressed
 
+paginate: 5
+
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
