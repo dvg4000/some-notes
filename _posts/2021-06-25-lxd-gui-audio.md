@@ -56,6 +56,18 @@ $ lxc restart guiapps
 $ lxc config device add guiapps X0 disk path=/tmp/.X11-unix/X0 source=/tmp/.X11-unix/X0
 ```
 
+**Update 29.06.2024**
+Для **Wayland**, нужно [пробрасывать](https://discuss.linuxcontainers.org/t/incus-lxd-profile-for-gui-apps-wayland-x11-and-pulseaudio/18295) X1:
+```yaml
+  xwayland_socket:
+    bind: container
+    connect: unix:@/tmp/.X11-unix/X1
+    listen: unix:@/tmp/.X11-unix/X1
+    security.gid: "1000"
+    security.uid: "1000"
+    type: proxy
+```
+
 Далее нужно пробросить в контейнер, файл авторизации для подключения к Х
 серверу (может это и не так называется). В оригинальном посте, это делается
 след. командой.
@@ -73,6 +85,16 @@ $ lxc config device add guiapps Xauthority disk path=/home/ubuntu/.Xauthority so
 $ XAUTH=/tmp/guiapps_xauth
 $ xauth nextract - "$DISPLAY" | sed -e 's/^..../ffff/' | xauth -f "$XAUTH" nmerge -
 $ lxc config device add guiapps Xauthority disk path=/home/ubuntu/.Xauthority source=${XAUTH}
+```
+
+**Update 29.06.2024**
+Для **Wayland**, проброс печенек-авторизации, заработал только с `shift=true`:
+```yaml
+  Xauthority:
+    path: /home/ubuntu/.Xauthority
+    shift: "true"
+    source: /tmp/guiaps_xauth
+    type: disk
 ```
 
 Далее включаем аппаратное ускорение графики в контейнере.
