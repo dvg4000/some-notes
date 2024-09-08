@@ -58,9 +58,9 @@ Plus-версия, это продолжение оригинальной Sandbo
 - Находим на рабочем столе созданный ярлык.
 - 1 Правой кнопкой, заходим в `Свойства` ярылка;
 - 2 В поле `Объект`, добавляем: 
-	`--profile-directory="Proxy 1"  --proxy-server="socks://192.168.99.1:3128"`
+	`--profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
 - 3 В поле Объект должно быть что-то похожее:
-	`"C:\Program Files\Sandboxie-Plus\SandMan.exe" /box:DefaultBox "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --profile-directory="Proxy 1"  --proxy-server="socks://192.168.99.1:3128"`
+	`"C:\Program Files\Sandboxie-Plus\SandMan.exe" /box:DefaultBox "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
 	
 - Теперь у нас два независимых процесса, хрома, каждый со своим профилем и настройками прокси.
 
