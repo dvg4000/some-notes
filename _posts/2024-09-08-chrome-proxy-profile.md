@@ -31,6 +31,7 @@ tags: [Firefox, Chrome, Proxy, Sandboxie]
 
 ### Chrome + профиль (не удобно)
 Есть вариант с запуском хрома, с указанными профилем, черз параметры камандой строки: 
+<br>
 `chrome.exe --profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
 
 Этот вариант уже работает, но только для **одного** экземпляра хрома. Если рядом запустить хром, с дефолтным профилем (`--profile-directory="Default"`), 
@@ -56,19 +57,20 @@ Plus-версия, это продолжение оригинальной Sandbo
   ![Explore dialog](https://i.imgur.com/ADNi0Bz.png)
   
 - Откроется *Chrome*. Незакрывая хром, переходим в окно `Sandboxie Plus`:
-- 1 Находим процес chrome.exe;
-- 2 Правой кнопкой вызываем контекстное меню;
-- 3 Выбираем `Create shortcut`;
+  * Находим процес chrome.exe;
+  * Правой кнопкой вызываем контекстное меню;
+  * Выбираем `Create shortcut`;
 
   ![Create shortcut menu](https://i.imgur.com/x5NT50h.png)
   
-- 4 Сохраняем на Рабочем столе.
+  * Сохраняем на Рабочем столе.
 - Находим на рабочем столе созданный ярлык.
-- 1 Правой кнопкой, заходим в `Свойства` ярылка;
-- 2 В поле `Объект`, добавляем: 
-	`--profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
-- 3 В поле Объект должно быть что-то похожее:
-	`"C:\Program Files\Sandboxie-Plus\SandMan.exe" /box:DefaultBox "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
+  * Правой кнопкой, заходим в `Свойства` ярылка;
+  * В поле `Объект`, добавляем:
+  `--profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
+  * В поле Объект должно быть что-то похожее:
+    <br>
+    `"C:\Program Files\Sandboxie-Plus\SandMan.exe" /box:DefaultBox "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --profile-directory="Proxy 1"  --proxy-server="socks://1.2.3.4:5678"`
 	
 - Теперь у нас два независимых процесса, хрома, каждый со своим профилем и настройками прокси.
 
