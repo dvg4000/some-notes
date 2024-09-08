@@ -9,7 +9,7 @@ tags: [Firefox, Chrome, Proxy, Sandboxie]
 Ну что, погнали?
 
 ### Цель
-Запилить аналог Firefox containers, под Chrome. Ну почти.
+Запилить аналог **Firefox Containers**, под **Chrome**. Ну почти.
 
 ### Firefox (все работает из коробки)
 В **Firefox**, есть очень удобная фича, под название [Контейнеры](https://support.mozilla.org/ru/kb/containers). 
@@ -40,11 +40,20 @@ Plus-версия, это продолжение оригинальной Sandbo
 **Sandboxie Plus**, умеет создавать ярлыки, для запуска приложений, сразу в песочнице. Это то что нам и нужно.
 - Открываем **Sandboxie Plus**;
 - Через меню `Sendbox/Run Sandboxed`, выбираем песочницу *DefaultBox* или другую;
+
+  ![Sandbox dialog](https://i.imgur.com/yks3IZ3.png)
+  
 - Нажимаем `Просмотр` и идем туда, где лежит chrome.exe (у меня это `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`) и запускаем.
+
+  ![Explore dialog](https://i.imgur.com/ADNi0Bz.png)
+  
 - Откроется *Chrome*. Незакрывая хром, переходим в окно `Sandboxie Plus`:
 - 1 Находим процес chrome.exe;
 - 2 Правой кнопкой вызываем контекстное меню;
 - 3 Выбираем `Create shortcut`;
+
+  ![Create shortcut menu](https://i.imgur.com/x5NT50h.png)
+  
 - 4 Сохраняем на Рабочем столе.
 - Находим на рабочем столе созданный ярлык.
 - 1 Правой кнопкой, заходим в `Свойства` ярылка;
@@ -54,6 +63,9 @@ Plus-версия, это продолжение оригинальной Sandbo
 	`"C:\Program Files\Sandboxie-Plus\SandMan.exe" /box:DefaultBox "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --profile-directory="Proxy 1"  --proxy-server="socks://192.168.99.1:3128"`
 	
 - Теперь у нас два независимых процесса, хрома, каждый со своим профилем и настройками прокси.
+
+  ![Process explorer](https://i.imgur.com/afGygnr.png)
+  
 - ...
 - Профит.
 
@@ -62,6 +74,6 @@ Plus-версия, это продолжение оригинальной Sandbo
 ### Запуск **Chrome** из-под учетки другого пользователя.
 На Linux, я бы наверно сразу воспользовался этим способом. 
 - Создать учетку пользователя, без возможности логина (и без пароля?).
-- Через sudo, запускать Chrome под этой учеткой со нужными параметрами.
+- Через sudo, запускать Chrome под этой учеткой с нужными параметрами.
 
 Уверен, Windows, так тоже может. Но мне лень заморачиваться этим под винду.
