@@ -255,9 +255,12 @@ AllowedIPs = 192.168.99.0/24
 Endpoint =  217.151.230.55:51616
 ```
 
-Прежде чем включать WireGuard на клиенте, стоит добавить **публичный** ключ клиента, на сервере (VPS).
+**Перенаправление всего трафика.**
+<br>Если в конфиге, `AllowedIPs` указать следующим образом, `AllowedIPs = 192.168.99.0/24`, тогда WireGuard будет
+перенаправлять весь трафик с машины, через VPS. 
 
-Сделать это можно с коммандной строки на VPS.
+Прежде чем включать WireGuard на клиенте, стоит добавить **публичный** ключ клиента, на сервере (VPS).
+<br>Сделать это можно с коммандной строки на VPS.
 ```bash
 $(vps) sudo wg set wg0 peer base64_encoded_client_public_key allowed-ips 192.168.99.2
 ```
@@ -284,3 +287,49 @@ $ sudo wg-quick@wg0 up wg0
 ```bash
 $ sudo wg-quick@wg0 down wg0
 ```
+
+##### Настройка клиентской части (Windows)
+
+Генерим ключи. 
+<Br>Ключи можно сгенерить на винде, но можно и на linux-машине. Что я и сделал. Там же сформировал `wg0.conf`:
+```conf
+[Interface]
+# base64_encoded_client_private_key - это содержимое private.key
+PrivateKey = base64_encoded_client_private_key
+Address = 192.168.99.3
+
+[Peer]
+# base64_encoded_server_public_key - это содержимое /etc/wireguard/public.key на **VPS**.
+PublicKey = base64_encoded_server_public_key
+AllowedIPs = 192.168.99.0/24
+Endpoint =  217.151.230.55:51616
+```
+
+1. Качаем [windows-клиента Wireguard](https://download.wireguard.com/windows-client/). 
+2. Логинимся в учетную запись Администратора, либо в учетную запись с админскими провами. Запуск с правами администратор из-под учетки пользователя, не поможет.
+3. Загружаем wg0.conf в клиенте и подключаемся там же.
+
+Для удобного включения и отключения vpn под обычной учеткой, достаточно выполнить следующую команду, с правами администратора. 
+```cmd
+netsh interface set interface wg0 (enable | disable)` 
+```
+
+##### Настройка клиентской части (Android)
+
+Качаем [клиента](https://www.wireguard.com/install/) с официального сайта WireGuard или из [Google Play](https://play.google.com/store/apps/details?id=com.wireguard.android).
+
+Генерим ключи. 
+<br>Ключи и конфиг проще создать на linux-машине.
+
+<br>Далее используя `qrencode`, можно сгенерить qr-code из конфига:
+пямо в консоль:
+```bash
+$ qrencode -t ansiutf8 wg-client.conf
+```
+
+или в файл:
+```bash
+$ qrencode -t png -o client-qr.png -r wg-client.conf
+```
+
+Далее сканируем, полученный qr-код из android-клиента и готово. В настройках клиента, можно указать, какие приложения будут использовать WireGuard.
