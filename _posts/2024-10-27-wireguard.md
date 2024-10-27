@@ -13,7 +13,7 @@ tags: [WireGuard, VPS, Ubuntu]
 `$` - выполнением комадны, под учеткой пользователя.
 <br>`#` - выполнением комадны, под root, на локальном хосте (домашнем компуктере например).
 <br>`$` - выполнением комадны, под учеткой пользователя, на локальном хосте (домашнем компуктере например).
-<br>`$(vps)` - выполнением комадны, под учеткой пользователя, на **VPS**.
+<br>`(vps)$` - выполнением комадны, под учеткой пользователя, на **VPS**.
 
 ### WireGuard
 
@@ -24,25 +24,25 @@ tags: [WireGuard, VPS, Ubuntu]
 
 Устанавливаем `WireGuard`.
 ```bash
-$(vps) sudo apt install wireguard
+(vps)$ sudo apt install wireguard
 ```
 
 Генерим ключи.
 ```bash
-$(vps) wg genkey | sudo tee /etc/wireguard/private.key
-$(vps) sudo chmod go= /etc/wireguard/private.key
-$(vps) sudo cat /etc/wireguard/private.key | wg pubkey | sudo tee /etc/wireguard/public.key
+(vps)$ wg genkey | sudo tee /etc/wireguard/private.key
+(vps)$ sudo chmod go= /etc/wireguard/private.key
+(vps)$ sudo cat /etc/wireguard/private.key | wg pubkey | sudo tee /etc/wireguard/public.key
 ```
 
 Находим внешний интерфейс, через который сервер выходит в интернет. В моем случае, это `eth0`. 
 ```bash
-$(vps) ip route list default
+(vps)$ ip route list default
 ```
 `default via <vps-public-ip> dev eth0 proto dhcp src <vps-public-ip> metric 100`
 
 Пишем конифг виртуального-сетевого-интерфеса (wg0).
 ```bash
-$(vps) sudo vim /etc/wireguard/wg0.conf
+(vps)$ sudo vim /etc/wireguard/wg0.conf
 ```
 ```conf
 [Interface]
@@ -72,7 +72,7 @@ PreDown = iptables -D FORWARD -i wg0 -o wg0 -j REJECT --reject-with icmp-net-pro
 
 Разрешаем проброс (между интерфесами) в ОСи.
 ```bash
-$(vps) sudo vim /etc/sysctl.conf
+(vps)$ sudo vim /etc/sysctl.conf
 ```
 
 Раскомментируем строчку.
@@ -82,18 +82,18 @@ net.ipv4.ip_forward=1
 
 Применяем изменения.
 ```bash
-$(vps) sudo sysctl -p
+(vps)$ sudo sysctl -p
 ```
 
 Открываем в фаерволе (UFW), порт для WireGuard.
 ```bash
-$(vps) sudo ufw allow 51616/udp
+(vps)$ sudo ufw allow 51616/udp
 ```
 
 Включаем и запускаем, Wireguard.
 ```bash
-$(vps) sudo systemctl enable wg-quick@wg0.service
-$(vps) sudo systemctl start wg-quick@wg0.service
+(vps)$ sudo systemctl enable wg-quick@wg0.service
+(vps)$ sudo systemctl start wg-quick@wg0.service
 ```
 
 ##### Настройка клиентской части (Linux)
@@ -129,7 +129,7 @@ Endpoint =  217.151.230.55:51616
 Прежде чем включать WireGuard на клиенте, стоит добавить **публичный** ключ клиента, на сервере (VPS).
 <br>Сделать это можно с коммандной строки на VPS.
 ```bash
-$(vps) sudo wg set wg0 peer base64_encoded_client_public_key allowed-ips 192.168.99.2
+(vps)$ sudo wg set wg0 peer base64_encoded_client_public_key allowed-ips 192.168.99.2
 ```
 
 Либо через редактирование конфига `/etc/wireguard/wg0.conf` на VPS. Раскомментируем строки под # Client 1:
@@ -142,7 +142,7 @@ AllowedIPs = 192.168.99.2/32
 
 Перезапускаем WireGuard на VPS.
 ```bash
-$(vps) sudo systemctl restart wg-quick@wg0.service
+(vps)$ sudo systemctl restart wg-quick@wg0.service
 ```
 
 Далее можно включать WireGuard на клиенте.
