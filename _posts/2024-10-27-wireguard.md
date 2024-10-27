@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "VPS + WireGuard + Dante"
-date:   2024-10-26 14:30:33 +0300
-tags: [VPS, WireGuard, Proxy, Dante]
+title:  "WireGuard"
+date:   2024-10-27 12:46:33 +0300
+tags: [WireGuard, VPS, Ubuntu]
 ---
 
-В этом посте, будет описание настройки **VPS**, с **VPN WireGuard** и прокси сервером **Dante**.
+В этом посте, будет описание настройки **WireGuard** на **VPS** c **Ubuntu 22.04**.
 
-Погнали.
+Предполагается, что на настраиваемой системе, уже настроен доступ по SSH, а так же на VPS используется UFW, в качестве фаервола.
 
 ## Обозначения
 `$` - выполнением комадны, под учеткой пользователя.
@@ -15,139 +15,7 @@ tags: [VPS, WireGuard, Proxy, Dante]
 <br>`$` - выполнением комадны, под учеткой пользователя, на локальном хосте (домашнем компуктере например).
 <br>`$(vps)` - выполнением комадны, под учеткой пользователя, на **VPS**.
 
-## Настройка VPS
-
-Выбираем VPS провайдера. Я остановился на [Timeweb Cloud](https://timeweb.cloud/). 
-<br>Конфигурация VPS: `Proc 1*3.3ГГц / RAM 1Гб / NVMe 15Гб / Net 200 Мбит`.
-<br>ОСь: `Ubuntu 22.04`.
-
-### Настраиваем рабочую учетку на VPS
-
-Через веб-консоль, на сайте провайдера VPS, логинимся в VPS под root. У [Timeweb Cloud](https://timeweb.cloud/) там все удобной сделано.
-
-Добавляем учетку `user123` и сразу добавляем эту учетку в группу `sudo`. 
-```sh
-#(vps) useradd -m user123
-#(vps) user123
-#(vps) usermod -aG sudo user123
-```
-
-### Настройки безопасности VPS
-
-#### SSH
-
-На локальном компе, генерим `ssh-ключ` и сразу копируем его на VPS.
-```sh
-$ ssh-keygen -t ed25519 -C "VPS" -f ed25519_vps 
-$ ssh-copy-id -i ~/.ssh/ed25519_vps.pub user123@<vps-ip>
-$ ssh -i .ssh/ed25519_vps user123@<vps-ip> 
-```
-
-`<vps-ip>` - это публиный IP4-адресс, VPS.
-
-Далее, включаем доступ только по `ssh-ключам`, меняем стандартный порт и разрешаем доступ только нашей учетке, на VPS.
-Для редактирования файлов, я использую `vim`. Если не знакомы с `vim`, то лучше попробуйте `nano`.
-```sh
-#(vps) vim /etc/ssh/sshd_config
-```
-Оставляем раскомментированными только указанные ниже строчки.
-```conf
-Port 2128
-PermitRootLogin no
-PasswordAuthentication no
-PubkeyAuthentication yes
-X11Forwarding no
-AllowUsers user123
-```
-
-Перезапускаем ssh-сервис.
-```sh
-#(vps) systemctl restart sshd.service
-```
-
-После этих настроек, можно логинится по `ssh` на `VPS` и закрывать Web-консоль.
-```sh
-$ ssh -P 2128 -i path/to/generated/ed25519_vps user123@<vps-ip>
-```
-
-Можно вообще [запретить](https://www.tecmint.com/disable-root-login-in-linux/) root учетку. Но это по желанию. Я не стал заморачиваться.
-
-#### Обновляем ОСь и меняем shell
-
-Обновляемся.
-```sh
-$(vps) sudo apt update
-$(vps) sudo apt upgrade
-```
-
-Меняем `sh` на `bash`. `chsh` запросит указать новый шел, надо ввести `/bin/bash`.
-```sh
-$(vps) chsh 
-```
-
-#### Защита SSH от подбора пароля. Fail2ban
-
-У **Timeweb Cloud**, есть [статья по настройке Fail2Ban](https://timeweb.cloud/docs/unix-guides/block-ssh-brute-force-attacks-fail2ban). 
-Уже не помню, но кажется я ей пользовался при настройке `Fail2Ban` на `VPS`.
-
-Устанавливаем Fail2Ban.
-```bash
-$(vps) sudo apt install fail2ban
-```
-
-Создаем фалй настроек, со следующим содержимым.
-```
-$(vps) sudo nano /etc/fail2ban/jail.local
-```
-
-```conf
-[sshd]  
-enabled  = true  
-port = 2128
-findtime = 120  
-maxretry = 3  
-bantime = 43200
-```
-
-Стартуем сервис `fail2ban`:
-```bash
-$(vps) sudo systemctl restart fail2ban.service
-```
-
-Смотрим статус:
-```bash
-$(vps) sudo fail2ban-client status sshd
-```
-
-Если вдруг, сами попали в бан, то заходим в web-консоль, смотрим статус (как показано выше), находим свой ip и убираем его из бана.
-```
-$(vps) sudo fail2ban-client unban <ip>
-```
-
-#### Настройка фаервола. UFW
-
-[Статья](https://timeweb.cloud/tutorials/ubuntu/nastrojka-faervola-v-ubuntu-s-pomoschyu-utility-ufw) на **Timeweb Cloud**. 
-Еще одна [статья](https://www.cyberciti.biz/faq/how-to-set-up-ufw-firewall-on-ubuntu-24-04-lts-in-5-minutes/).
-
-**UFW** должен быть установлен на **Ubuntu** из коробки.
-
-Отключаем добавление IPv6 правил.
-```bash
-sudo nano /etc/default/ufw
-```
-Строчку `IPV6=yes` меняем на `IPV6=no`
-
-Добавляем правила.
-```bash
-$(vps) sudo ufw default deny incoming
-$(vps) sudo ufw default allow outgoing
-$(vps) sudo ufw allow 2128
-$(vps) sudo ufw enable
-$(vps) sudo ufw status verbose
-$(vps) sudo systemctl status ufw.service
-```
-
-#### WireGuard
+### WireGuard
 
 За основу настройки, взяли вот эти две статьи: [digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04), 
 [shibumi.dev](https://shibumi.dev/posts/isolated-clients-with-wireguard/).
@@ -165,7 +33,6 @@ $(vps) wg genkey | sudo tee /etc/wireguard/private.key
 $(vps) sudo chmod go= /etc/wireguard/private.key
 $(vps) sudo cat /etc/wireguard/private.key | wg pubkey | sudo tee /etc/wireguard/public.key
 ```
-
 
 Находим внешний интерфейс, через который сервер выходит в интернет. В моем случае, это `eth0`. 
 ```bash
