@@ -5,7 +5,7 @@ date:   2024-10-27 12:46:33 +0300
 tags: [WireGuard, VPS, Ubuntu]
 ---
 
-В этом посте, будет описание настройки **WireGuard** на **VPS** c **Ubuntu 22.04**.
+В этом посте, будет описание настройки [**WireGuard**](https://www.wireguard.com/) на **VPS** c **Ubuntu 22.04**.
 
 Предполагается, что на настраиваемой системе, уже настроен доступ по SSH, а так же на VPS используется UFW, в качестве фаервола.
 
@@ -181,6 +181,7 @@ Endpoint =  217.151.230.55:51616
 netsh interface set interface wg0 (enable | disable)` 
 ```
 
+<!-- Android client 
 ##### Настройка клиентской части (Android)
 
 Качаем [клиента](https://www.wireguard.com/install/) с официального сайта WireGuard или из [Google Play](https://play.google.com/store/apps/details?id=com.wireguard.android).
@@ -200,3 +201,4 @@ $ qrencode -t png -o client-qr.png -r wg-client.conf
 ```
 
 Далее сканируем, полученный qr-код из android-клиента и готово. В настройках клиента, можно указать, какие приложения будут использовать WireGuard.
+-->
