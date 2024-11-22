@@ -15,7 +15,7 @@ tags: [WireGuard, VPS, Ubuntu]
 <br>`$` - выполнением комадны, под учеткой пользователя, на локальном хосте (домашнем компуктере например).
 <br>`(vps)$` - выполнением комадны, под учеткой пользователя, на **VPS**.
 
-## WireGuard
+## База
 
 За основу настройки, взяли вот эти две статьи: [digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04), 
 [shibumi.dev](https://shibumi.dev/posts/isolated-clients-with-wireguard/).
