@@ -15,12 +15,12 @@ tags: [WireGuard, VPS, Ubuntu]
 <br>`$` - выполнением комадны, под учеткой пользователя, на локальном хосте (домашнем компуктере например).
 <br>`(vps)$` - выполнением комадны, под учеткой пользователя, на **VPS**.
 
-### WireGuard
+## WireGuard
 
 За основу настройки, взяли вот эти две статьи: [digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04), 
 [shibumi.dev](https://shibumi.dev/posts/isolated-clients-with-wireguard/).
 
-##### Настройка серверной чаcти (VPS)
+## Настройка серверной чаcти (VPS)
 
 Устанавливаем `WireGuard`.
 ```bash
@@ -47,19 +47,19 @@ tags: [WireGuard, VPS, Ubuntu]
 ```conf
 [Interface]
 # base64_encoded_server_private_key - это содержимое /etc/wireguard/private.key
-PrivateKey = base64_encoded_server_private_key
+PrivateKey = <base64_encoded_server_private_key>
 Address = 192.168.99.1/24
 ListenPort = 51616
 SaveConfig = true
 
 # Client 1
 #[Peer]
-#PublicKey = base64_encoded_client_public_key 
+#PublicKey = <base64_encoded_client_public_key>
 #AllowedIPs = 192.168.99.2/32
 
 # Client 2
 #[Peer]
-#PublicKey = base64_encoded_client_public_key 
+#PublicKey = <base64_encoded_client_public_key>
 #AllowedIPs = 192.168.99.3/32
 
 PostUp = ufw route allow in on wg0 out on eth0
@@ -96,7 +96,7 @@ net.ipv4.ip_forward=1
 (vps)$ sudo systemctl start wg-quick@wg0.service
 ```
 
-##### Настройка клиентской части (Linux)
+## Настройка клиентской части (Linux)
 
 Генерим ключи.
 ```bash
@@ -112,14 +112,14 @@ $ sudo vim /etc/wireguard/wg0.conf
 ```conf
 [Interface]
 # base64_encoded_client_private_key - это содержимое /etc/wireguard/private.key
-PrivateKey = base64_encoded_client_private_key
+PrivateKey = <base64_encoded_client_private_key>
 Address = 192.168.99.2
 
 [Peer]
 # base64_encoded_server_public_key - это содержимое /etc/wireguard/public.key на **VPS**.
-PublicKey = base64_encoded_server_public_key
+PublicKey = <base64_encoded_server_public_key>
 AllowedIPs = 192.168.99.0/24
-Endpoint =  217.151.230.55:51616
+Endpoint =  <VPS-IP>:51616
 ```
 
 **Перенаправление всего трафика.**
@@ -136,11 +136,11 @@ Endpoint =  217.151.230.55:51616
 ```conf
 # Client 1
 [Peer]
-PublicKey = base64_encoded_client_public_key 
+PublicKey = <base64_encoded_client_public_key>
 AllowedIPs = 192.168.99.2/32
 ```
 
-Перезапускаем WireGuard на VPS.
+Перечитываем конфиги WireGuard на VPS.
 ```bash
 (vps)$ sudo systemctl restart wg-quick@wg0.service
 ```
@@ -155,21 +155,49 @@ $ sudo wg-quick@wg0 up wg0
 $ sudo wg-quick@wg0 down wg0
 ```
 
-##### Настройка клиентской части (Windows)
+Полезности для Linux:
+
+Создаем шаблон для конфигов `wg.conf.template`.
+```conf
+[Interface]
+PrivateKey = the_key
+Address = 192.168.99.100
+[Peer]
+PublicKey = <base64_encoded_server_public_key>
+AllowedIPs = 192.168.99.0/24
+Endpoint = <VPS IP>
+```
+
+Создаем новый конфиг.
+```sh
+wg genkey | xargs -i sed -r '2s#(PrivateKey = ).+#\1{}#' wg0.conf.template > wg0.conf
+```
+
+Получаем публичный ключ из конфига, который потом добавляем на сервер.
+```sh
+grep -oP '^PrivateKey\s=\s\K(.+)$' wg0.conf | wg pubkey
+```
+
+Генерим QR-код
+```sh
+qrencode -t png -r wg0.conf -o ~/Desktop/qr.png
+```
+
+## Настройка клиентской части (Windows)
 
 Генерим ключи. 
 <Br>Ключи можно сгенерить на винде, но можно и на linux-машине. Что я и сделал. Там же сформировал `wg0.conf`:
 ```conf
 [Interface]
 # base64_encoded_client_private_key - это содержимое private.key
-PrivateKey = base64_encoded_client_private_key
+PrivateKey = <base64_encoded_client_private_key>
 Address = 192.168.99.3
 
 [Peer]
 # base64_encoded_server_public_key - это содержимое /etc/wireguard/public.key на **VPS**.
-PublicKey = base64_encoded_server_public_key
+PublicKey = <base64_encoded_server_public_key>
 AllowedIPs = 192.168.99.0/24
-Endpoint =  217.151.230.55:51616
+Endpoint =  <VPS-IP>:51616
 ```
 
 1. Качаем [windows-клиента Wireguard](https://download.wireguard.com/windows-client/). 
@@ -182,7 +210,7 @@ netsh interface set interface wg0 (enable | disable)`
 ```
 
 <!-- Android client 
-##### Настройка клиентской части (Android)
+## Настройка клиентской части (Android)
 
 Качаем [клиента](https://www.wireguard.com/install/) с официального сайта WireGuard или из [Google Play](https://play.google.com/store/apps/details?id=com.wireguard.android).
 
