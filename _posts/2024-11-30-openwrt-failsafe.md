@@ -1,14 +1,13 @@
 ---
 layout: post
 title:  "OpenWRT failsafe mode"
-date:   2024-11-30 23:06:33 +0300
+date:   2024-11-30 19:06:33 +0300
 tags: [OpenWRT]
 ---
 
 Недавно со мной приключился, презабавный каламбур. Так получилось, что я заблокировал досутп себе, 
 к своему домашнему роутеру [ASUS RT-AX53U](https://www.asus.com/networking-iot-servers/wifi-routers/asus-wifi-routers/rt-ax53u/), 
-с установленной на нем [OpenWRT](https://openwrt.org/toh/asus/rt-ax53u). На самом деле, оригинальная прошивка роутера, 
-не скажу что плохая, но я зачем-то установил на него **OpenWRT**. Не помню уже почему. :man_shrugging: :)
+с установленной на нем [OpenWRT](https://openwrt.org/toh/asus/rt-ax53u).
 
 Так вот, играясь с настройками firewall-а, я умудрился заблокировать досутп из локальной сети, к роутеру. :man_facepalming: :grinning:
 При этом сам роутер, продолжил исправно работать, просто доступ для дальнейших настроек, был закрыт. 
