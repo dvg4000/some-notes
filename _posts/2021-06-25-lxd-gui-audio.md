@@ -2,7 +2,7 @@
 layout: post
 title:  "Запускаем GUI приложения в LXC, еще и со звуком"
 date:   2021-06-25 22:11:33 +0300
-tags:	[virtualization, LXC, LXD, Linux]
+tags:	[virtualization, LXC, LXD, Linux, cdemu, cdrom]
 ---
 ### Собственно сабж
 
@@ -157,3 +157,28 @@ $ lxc restart guiapps
 
 P.P.S. Еще одна
 [статья](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/), от автора оригинального поста. В этом посту, автор использует профили, для более быстрой настройки контейнера.
+
+### Update 07.01.2025
+Подключение образа диска (CD).
+
+Для установки некоторых игр, нужно монтировать образ диска. В linux для этого есть отличная утилита - [**cdemu**](https://cdemu.sourceforge.io/). 
+
+Но есть проблема, с использованием этой утилиты, внутри LXC. Точно не помню уже, но есть какие-то проблемы 
+с монтирование образа, внутри контейнера.
+
+Так вот, для решения этой проблемы, образ можно подгрузить на хосте:
+```sh
+cdemu load 0 path/to/img
+```
+
+Далее нужно пробросить образ в контейнер:
+```sh
+sudo lxc config device add guiaps cdrom disk readonly=true path=/mnt/cdrom source=/dev/sr0
+```
+После этой команды, образ будет доступен внутри контейнера: `/mnt/cdrom`.
+
+Выгрузить образ, можно командой:
+```sh
+cdemu unload 0
+```
+Посмотреть список загруженных образов - `cdemu status`.
