@@ -57,7 +57,7 @@ $ lxc config device add guiapps X0 disk path=/tmp/.X11-unix/X0 source=/tmp/.X11-
 ```
 
 **Update 29.06.2024**
-Для **Wayland**, нужно [пробрасывать](https://discuss.linuxcontainers.org/t/incus-lxd-profile-for-gui-apps-wayland-x11-and-pulseaudio/18295) X1:
+<br>Для **Wayland**, нужно [пробрасывать](https://discuss.linuxcontainers.org/t/incus-lxd-profile-for-gui-apps-wayland-x11-and-pulseaudio/18295) X1:
 ```yaml
   xwayland_socket:
     bind: container
@@ -88,6 +88,7 @@ $ lxc config device add guiapps Xauthority disk path=/home/ubuntu/.Xauthority so
 ```
 
 **Update 29.06.2024**
+<br>
 Для **Wayland**, проброс печенек-авторизации, заработал только с `shift=true`:
 ```yaml
   Xauthority:
@@ -97,6 +98,23 @@ $ lxc config device add guiapps Xauthority disk path=/home/ubuntu/.Xauthority so
     type: disk
 ```
 
+**Update 08.01.2025**
+<br>
+Откатился обратно на ядро 5.15 и контейнер перестал запускаться с такой вот ошибкой: 
+`idmapping abilities are required but aren't supported on system`.
+<br>
+Как выяснилось, все дело в поддержки [shiftfs ядром](https://wiki.archlinux.org/title/LXD#Read-Write_(unprivileged_container)). 
+<br>Решение ишибки заключалось в комментировании `shift: "true"` в настройках контейнера:
+```sh
+sudo lxc config edit guiaps
+```
+```yaml
+  Xauthority:
+    path: /home/ubuntu/.Xauthority
+#    shift: "true"
+    source: /tmp/guiaps_xauth
+    type: disk
+```
 Далее включаем аппаратное ускорение графики в контейнере.
 ```sh
 $ lxc config device add guiapps mygpu gpu
@@ -163,8 +181,8 @@ P.P.S. Еще одна
 
 Для установки некоторых игр, нужно монтировать образ диска. В linux для этого есть отличная утилита - [**cdemu**](https://cdemu.sourceforge.io/). 
 
-Но есть проблема, с использованием этой утилиты, внутри LXC. Точно не помню уже, но есть какие-то проблемы 
-с монтирование образа, внутри контейнера.
+Но есть проблема с использованием этой утилиты внутри LXC. Точно не помню уже, но связана она кажется с разрешениями 
+на подключения loop-девайсов или других устройств, внутри контейнера.
 
 Так вот, для решения этой проблемы, образ можно подгрузить на хосте:
 ```sh
@@ -181,4 +199,11 @@ sudo lxc config device add guiaps cdrom disk readonly=true path=/mnt/cdrom sourc
 ```sh
 cdemu unload 0
 ```
+Главное не забыть, отключить образ от контейнера, чтобы он потом не ругался при запуске:
+```sh
+sudo lxc config device remove guiaps cdrom
+```
+
 Посмотреть список загруженных образов - `cdemu status`.
+
+Если образ больше не нужен, то его нужно отключить от контейнера, иначе контейнер 
