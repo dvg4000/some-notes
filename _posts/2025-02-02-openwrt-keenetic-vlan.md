@@ -42,7 +42,7 @@ tags: [OpenWRT, Keenetic, VLAN, Wi-Fi]
 
 2. Добавляем VLAN (`lan2.2` из предыдущего шага)
    
-   [![](https://i.imgur.com/rRhTWEg.png)){:width="75%"}](https://i.imgur.com/rRhTWEg.png)
+   [![](https://i.imgur.com/rRhTWEg.png){:width="75%"}](https://i.imgur.com/rRhTWEg.png)
    
    - (1) Выбираем тип устройства: `VLAN (802.1q)`
    - (2) В качестве `Base device`, выбираем сетевой порт (разьем куда подвключается сетевой кабель), к которому будет подключен комнатный роутер. В моем случае, это 2-й порт.
@@ -51,15 +51,15 @@ tags: [OpenWRT, Keenetic, VLAN, Wi-Fi]
   
 4. Далее подключаем вновь созданный vlan, к бриджу мобильной сети.
 
-  [![](https://i.imgur.com/ZrPBrKY.png)){:width="75%"}](https://i.imgur.com/ZrPBrKY.png)
+  [![](https://i.imgur.com/ZrPBrKY.png){:width="75%"}](https://i.imgur.com/ZrPBrKY.png)
   
    Открываем настройки мобильного бриджа `br-mobile`:
 
-   [![](https://i.imgur.com/OEgn0MM.png)){:width="75%"}](https://i.imgur.com/OEgn0MM.png)
+   [![](https://i.imgur.com/OEgn0MM.png){:width="75%"}](https://i.imgur.com/OEgn0MM.png)
    
    В порты, добавляем, созданный vlan:
 
-   [![](https://i.imgur.com/S8r3Tok.png)){:width="75%"}](https://i.imgur.com/S8r3Tok.png)
+   [![](https://i.imgur.com/S8r3Tok.png){:width="75%"}](https://i.imgur.com/S8r3Tok.png)
    
    В принципе все. Можно еще заглянуть на вкладку `Bridge VLAN filtering`, там должен быть виден, добавленный VLAN (вроде бы так 😄).
 
@@ -68,26 +68,26 @@ tags: [OpenWRT, Keenetic, VLAN, Wi-Fi]
 1. Я точно не помню какой режим, я выбрал при первоначальной настройке **Keenetic**. Кажется `Ethernet`. Т.е. режим обычного роутера.
    Дополнительный режим, тоже пробовал, но с ним были какие-то непонятки.
 
-   [![](https://i.imgur.com/FvZWw2a.png)){:width="75%"}](https://i.imgur.com/FvZWw2a.png)
+   [![](https://i.imgur.com/FvZWw2a.png){:width="75%"}](https://i.imgur.com/FvZWw2a.png)
 
 2. После того как разобрались с первоначальной настройкой **Keenetic**.
 
-   [![](https://i.imgur.com/kuDwHGA.png)){:width="75%"}](https://i.imgur.com/kuDwHGA.png)
+   [![](https://i.imgur.com/kuDwHGA.png){:width="75%"}](https://i.imgur.com/kuDwHGA.png)
    
    Настраиваем основную сеть.
 
-   [![](https://i.imgur.com/Vy3OG1a.png)){:width="75%"}](https://i.imgur.com/Vy3OG1a.png)
+   [![](https://i.imgur.com/Vy3OG1a.png){:width="75%"}](https://i.imgur.com/Vy3OG1a.png)
    
    Включаем получение IP-адреса по DHCP и указываем адрес основного роутера (2)
    Чтобы у комнатного роутера, был постоянный IP-адрес, я зафиксировал его на основном роутере, по MAC-адресу.
 
 4. Настраиваем гостевую сеть:
 
-   [![](https://i.imgur.com/8r3Qcfc.png)){:width="75%"}](https://i.imgur.com/8r3Qcfc.png)
+   [![](https://i.imgur.com/8r3Qcfc.png){:width="75%"}](https://i.imgur.com/8r3Qcfc.png)
    
    Добавляем новую сеть (1) и включаем Wi-Fi (2).
 
-   [![](https://i.imgur.com/R8b0IgB.png)){:width="75%"}](https://i.imgur.com/R8b0IgB.png)
+   [![](https://i.imgur.com/R8b0IgB.png){:width="75%"}](https://i.imgur.com/R8b0IgB.png)
    
    Отключаем доступ к порту (1 и 2), через который комнатный роутер, подключен к основному.
    <br>Указываем (3) VLAN ID равынм 2.
