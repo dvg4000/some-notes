@@ -36,7 +36,7 @@ tags: [OpenWRT, Keenetic, VLAN, Wi-Fi]
 
 1. Заходми в **Network**, вкладка **Devices**.
    
-   ![openwrt step1](https://i.imgur.com/IXZmMsw.png)
+   [![](https://i.imgur.com/IXZmMsw.png){:width="200px"}](https://i.imgur.com/IXZmMsw.png)
 
    (1) `Network`, вкладка (2) `Devices`, кнопка (3)`Add device confihuration..`. (4) `lan2.2` появится после выполнения следующего шага.
 
