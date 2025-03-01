@@ -89,3 +89,10 @@ Plus-версия, это продолжение оригинальной Sandbo
 - Через sudo, запускать Chrome под этой учеткой с нужными параметрами.
 
 Уверен, Windows, так тоже может. Но мне лень заморачиваться этим под винду.
+
+### Update 01.03.2025
+Под линух, сделал через [Firejail](https://firejail.wordpress.com/).
+```sh
+$ firejail --profile=/etc/firejail/google-chrome-stable.profile /usr/bin/google-chrome-stable --profile-directory=Proxy1 --proxy-server=socks://1.2.3.4:5678
+```
+
