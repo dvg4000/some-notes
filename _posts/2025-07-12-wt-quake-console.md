@@ -19,4 +19,8 @@ tags: [Windows, Terminal, Console, Quake]
 
 Далее нажимаем **Win** + **`**, чтобы открыть / закрыть консоль.
 
-https://imgur.com/a/windows-terminal-quake-console-jZ3PWye
+https://i.imgur.com/6JPnwCE.png
+
+[![](https://i.imgur.com/vPnZ6hH.png){:width="75%"}](https://i.imgur.com/vPnZ6hH.png)
+[![](https://i.imgur.com/kYbWBUG.png){:width="75%"}](https://i.imgur.com/kYbWBUG.png)
+[![](https://i.imgur.com/6JPnwCE.png){:width="75%"}](https://i.imgur.com/6JPnwCE.png)
