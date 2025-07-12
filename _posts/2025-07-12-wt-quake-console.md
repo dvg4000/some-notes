@@ -23,4 +23,4 @@ tags: [Windows, Terminal, Console, Quake]
 <br>
 [![](https://i.imgur.com/kYbWBUG.png){:width="75%"}](https://i.imgur.com/kYbWBUG.png)
 <br>
-[![](https://i.imgur.com/6JPnwCE.png){:width="75%"}](https://i.imgur.com/6JPnwCE.png)
+[![](https://i.imgur.com/yHMmxbx.png){:width="75%"}](https://i.imgur.com/yHMmxbx.png)
